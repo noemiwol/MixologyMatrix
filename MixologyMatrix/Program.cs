@@ -50,16 +50,16 @@ namespace MixologyMatrix
                     case '3':
                         break;
                     case '4':
-                        Console.WriteLine("Enter the name of the drink to remove:");
-                        string drinkName = Console.ReadLine();
-                        drinkRemover.RemoveDrink(drinkName);
+                        drinkRemover.DrinkRemoverMenu();
                         break;
                     case '5':
                         break;
                     case '6':
+                        Console.WriteLine("Exiting the program...");
+                        Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Action you entered does not exist");
+                        Console.WriteLine("Action you entered does not exist. Please try again.");
                         break;
                 }
             }
@@ -79,3 +79,5 @@ namespace MixologyMatrix
         }
     }
 }
+//wyswietlanie szczegolu drinku po znalezniu go w wynikach wyszukiwania
+//wyswietlanie szczegolowow drinku po wybraniu go z listy

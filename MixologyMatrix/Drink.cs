@@ -8,6 +8,7 @@ namespace MixologyMatrix
 {
     public class Drink
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public DrinkType Type { get; set; }
         public string Ingredients { get; set; }
@@ -17,8 +18,9 @@ namespace MixologyMatrix
         public FlavorProfile FlavorProfile { get; set; }
         public OccasionType OccasionType { get; set; }
 
-        public Drink(string name, DrinkType type, string ingredients, AlcoholType alcohol, DifficultyLevel difficultyLevel, GlassType glassType, FlavorProfile flavorProfile, OccasionType occasionType)
+        public Drink(int id,string name, DrinkType type, string ingredients, AlcoholType alcohol, DifficultyLevel difficultyLevel, GlassType glassType, FlavorProfile flavorProfile, OccasionType occasionType)
         {
+            Id = id;
             Name = name;
             Type = type;
             Ingredients = ingredients;
