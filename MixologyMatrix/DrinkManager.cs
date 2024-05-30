@@ -23,11 +23,13 @@ namespace MixologyMatrix
             Console.WriteLine($"Name: {drink.Name}");
             Console.WriteLine($"Type: {drink.Type}");
             Console.WriteLine($"Ingredients: {drink.Ingredients}");
+            Console.WriteLine($"Steps: {drink.Steps}");
             Console.WriteLine($"Alcohol: {drink.Alcohol}");
             Console.WriteLine($"Difficulty Level: {drink.DifficultyLevel}");
             Console.WriteLine($"Glass Type: {drink.GlassType}");
             Console.WriteLine($"Flavor Profile: {drink.FlavorProfile}");
             Console.WriteLine($"Occasion Type: {drink.OccasionType}");
+            Console.WriteLine(new string('-', 20));
         }
         public void AddDrink()
         {
@@ -155,7 +157,7 @@ namespace MixologyMatrix
             string steps = Console.ReadLine();
 
             int newDrinkId = nextId++;
-            Drink newDrink = new Drink(newDrinkId, name, type, ingredients, alcohol, difficultyLevel, glassType, flavorProfile, occasionType);
+            Drink newDrink = new Drink(newDrinkId, name, type, ingredients, steps, alcohol, difficultyLevel, glassType, flavorProfile, occasionType);
 
             drinks.Add(newDrink);
             Console.WriteLine("New drink added successfully!");
@@ -432,5 +434,199 @@ namespace MixologyMatrix
             Console.WriteLine("Invalid type");
             return new List<Drink>();
         }
+
+        public void ListAllDrinks()
+        {
+            if(drinks.Count == 0)
+            {
+                Console.WriteLine("No drinks available");
+                return;
+            }
+
+            Console.WriteLine("Listing all drink recipes ");
+            foreach (var drink in drinks)
+            {
+                Console.WriteLine($"- {drink.Name}");
+                DisplayDrinkDetails(drink);
+            }
+        }
+
+        public void EditDrink()
+        {
+            ListAllDrinks();
+            Console.WriteLine("Enter the ID of the drink you want to edit:");
+            int drinkId;
+            if (!int.TryParse(Console.ReadLine(), out drinkId))
+            {
+                Console.WriteLine("Invalid ID format. Please enter a valid number.");
+                return;
+            }
+
+            Drink drinkToEdit = drinks.FirstOrDefault(d => d.Id == drinkId);
+            if (drinkToEdit == null)
+            {
+                Console.WriteLine($"Drink with ID {drinkId} not found.");
+                return;
+            }
+
+            Console.WriteLine("Editing Drink:");
+            DisplayDrinkDetails(drinkToEdit);
+
+            Console.Write("Enter the new name of the drink (or press Enter to keep current): ");
+            string name = Console.ReadLine();
+            if (!string.IsNullOrEmpty(name))
+            {
+                drinkToEdit.Name = name;
+            }
+
+            Console.WriteLine("Is the drink alcoholic or non-alcoholic? (A/N or press Enter to keep current)");
+            string typeInput = Console.ReadLine().ToUpper();
+            if (!string.IsNullOrEmpty(typeInput))
+            {
+                DrinkType type = (typeInput == "A") ? DrinkType.Alcoholic : DrinkType.NonAlcoholic;
+                drinkToEdit.Type = type;
+            }
+
+            AlcoholType alcohol;
+            while (true)
+            {
+                Console.WriteLine("Select the alcohol type (or press Enter to keep current):");
+                foreach (AlcoholType alcoholType in Enum.GetValues(typeof(AlcoholType)))
+                {
+                    Console.WriteLine($"{(int)alcoholType}. {alcoholType}");
+                }
+
+                Console.Write("Enter the number corresponding to the alcohol type: ");
+                string alcoholInput = Console.ReadLine();
+                if (string.IsNullOrEmpty(alcoholInput)) break;
+
+                int alcoholIndex;
+                if (!int.TryParse(alcoholInput, out alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
+                {
+                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the alcohol type.");
+                    continue;
+                }
+
+                alcohol = (AlcoholType)alcoholIndex;
+                drinkToEdit.Alcohol = alcohol;
+                break;
+            }
+
+            DifficultyLevel difficultyLevel;
+            while (true)
+            {
+                Console.WriteLine("Select the difficulty level (or press Enter to keep current):");
+                foreach (DifficultyLevel difficulty in Enum.GetValues(typeof(DifficultyLevel)))
+                {
+                    Console.WriteLine($"{(int)difficulty}. {difficulty}");
+                }
+
+                Console.Write("Enter the number corresponding to the difficulty level: ");
+                string difficultyInput = Console.ReadLine();
+                if (string.IsNullOrEmpty(difficultyInput)) break;
+
+                int difficultyLevelIndex;
+                if (!int.TryParse(difficultyInput, out difficultyLevelIndex) || !Enum.IsDefined(typeof(DifficultyLevel), difficultyLevelIndex))
+                {
+                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the difficulty level.");
+                    continue;
+                }
+
+                difficultyLevel = (DifficultyLevel)difficultyLevelIndex;
+                drinkToEdit.DifficultyLevel = difficultyLevel;
+                break;
+            }
+
+            GlassType glassType;
+            while (true)
+            {
+                Console.WriteLine("Select the glass type (or press Enter to keep current):");
+                foreach (GlassType glass in Enum.GetValues(typeof(GlassType)))
+                {
+                    Console.WriteLine($"{(int)glass}. {glass}");
+                }
+
+                Console.Write("Enter the number corresponding to the glass type: ");
+                string glassInput = Console.ReadLine();
+                if (string.IsNullOrEmpty(glassInput)) break;
+
+                int glassIndex;
+                if (!int.TryParse(glassInput, out glassIndex) || !Enum.IsDefined(typeof(GlassType), glassIndex))
+                {
+                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the glass type.");
+                    continue;
+                }
+
+                glassType = (GlassType)glassIndex;
+                drinkToEdit.GlassType = glassType;
+                break;
+            }
+
+            FlavorProfile flavorProfile;
+            while (true)
+            {
+                Console.WriteLine("Select the flavor profile (or press Enter to keep current):");
+                foreach (FlavorProfile flavor in Enum.GetValues(typeof(FlavorProfile)))
+                {
+                    Console.WriteLine($"{(int)flavor}. {flavor}");
+                }
+
+                Console.Write("Enter the number corresponding to the flavor profile: ");
+                string flavorInput = Console.ReadLine();
+                if (string.IsNullOrEmpty(flavorInput)) break;
+
+                int flavorIndex;
+                if (!int.TryParse(flavorInput, out flavorIndex) || !Enum.IsDefined(typeof(FlavorProfile), flavorIndex))
+                {
+                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the flavor profile.");
+                    continue;
+                }
+
+                flavorProfile = (FlavorProfile)flavorIndex;
+                drinkToEdit.FlavorProfile = flavorProfile;
+                break;
+            }
+
+            OccasionType occasionType;
+            while (true)
+            {
+                Console.WriteLine("Select the occasion type (or press Enter to keep current):");
+                foreach (OccasionType occasion in Enum.GetValues(typeof(OccasionType)))
+                {
+                    Console.WriteLine($"{(int)occasion}. {occasion}");
+                }
+
+                Console.Write("Enter the number corresponding to the occasion type: ");
+                string occasionInput = Console.ReadLine();
+                if (string.IsNullOrEmpty(occasionInput)) break;
+
+                int occasionIndex;
+                if (!int.TryParse(occasionInput, out occasionIndex) || !Enum.IsDefined(typeof(OccasionType), occasionIndex))
+                {
+                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the occasion type.");
+                    continue;
+                }
+                occasionType = (OccasionType)occasionIndex;
+                drinkToEdit.OccasionType = occasionType;
+                break;
+            }
+
+            Console.Write("Enter the new ingredients of the drink (or press Enter to keep current): ");
+            string ingredients = Console.ReadLine();
+            if (!string.IsNullOrEmpty(ingredients))
+            {
+                drinkToEdit.Ingredients = ingredients;
+            }
+
+            Console.Write("Enter the new steps of the drink (or press Enter to keep current): ");
+            string steps = Console.ReadLine();
+            if (!string.IsNullOrEmpty(steps))
+            {
+                drinkToEdit.Steps = steps;
+            }
+
+            Console.WriteLine($"Drink ID {drinkId} updated successfully!");
+        }
+
     }
 }

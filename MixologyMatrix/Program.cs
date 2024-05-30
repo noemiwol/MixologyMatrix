@@ -48,11 +48,13 @@ namespace MixologyMatrix
                         drinkManager.AddDrink();
                         break;
                     case '3':
+                        drinkManager.EditDrink();
                         break;
                     case '4':
                         drinkRemover.DrinkRemoverMenu();
                         break;
                     case '5':
+                        drinkManager.ListAllDrinks();
                         break;
                     case '6':
                         Console.WriteLine("Exiting the program...");
@@ -79,5 +81,3 @@ namespace MixologyMatrix
         }
     }
 }
-//wyswietlanie szczegolu drinku po znalezniu go w wynikach wyszukiwania
-//wyswietlanie szczegolowow drinku po wybraniu go z listy
