@@ -8,7 +8,8 @@ namespace MixologyMatrix
 {
     public class DrinkSearchService
     {
-        private List<Drink> drinks; 
+        private List<Drink> drinks;
+        private List<AlcoholicDrink> drinks_;
 
         public DrinkSearchService(List<Drink> drinks)
         {
@@ -22,9 +23,9 @@ namespace MixologyMatrix
         {
             return drinks.Where(d => d.Type == drinkType).ToList();
         }
-        public List<Drink> SaerchByAlcoholType(AlcoholType alcoholType)
+        public List<AlcoholicDrink> SaerchByAlcoholType(AlcoholType alcoholType)
         {
-            return drinks.Where(a => a.Alcohol == alcoholType).ToList();
+            return drinks.OfType<AlcoholicDrink>().Where(a => a.Alcohol == alcoholType).ToList();
         }
 
         public List<Drink> SaerchByDifficultyLevel(DifficultyLevel difficultyLevel)

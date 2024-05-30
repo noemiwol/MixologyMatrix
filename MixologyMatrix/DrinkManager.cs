@@ -24,7 +24,10 @@ namespace MixologyMatrix
             Console.WriteLine($"Type: {drink.Type}");
             Console.WriteLine($"Ingredients: {drink.Ingredients}");
             Console.WriteLine($"Steps: {drink.Steps}");
-            Console.WriteLine($"Alcohol: {drink.Alcohol}");
+            if(drink is AlcoholicDrink alcoholicDrink)
+            {
+                Console.WriteLine($"Alcohol: {alcoholicDrink.Alcohol}");
+            } 
             Console.WriteLine($"Difficulty Level: {drink.DifficultyLevel}");
             Console.WriteLine($"Glass Type: {drink.GlassType}");
             Console.WriteLine($"Flavor Profile: {drink.FlavorProfile}");
@@ -41,26 +44,30 @@ namespace MixologyMatrix
             Console.WriteLine("Is the drink alcoholic or non-alcoholic? (A/N)");
             string typeInput = Console.ReadLine().ToUpper();
             DrinkType type = (typeInput == "A") ? DrinkType.Alcoholic : DrinkType.NonAlcoholic;
-            AlcoholType alcohol;
-            while (true)
+
+            AlcoholType alcohol = AlcoholType.None;
+            if(type == DrinkType.Alcoholic)
             {
-                Console.WriteLine("Select the alcohol type:");
-                foreach (AlcoholType alcoholType in Enum.GetValues(typeof(AlcoholType)))
+                while (true)
                 {
-                    Console.WriteLine($"{(int)alcoholType}. {alcoholType}");
+                    Console.WriteLine("Select the alcohol type:");
+                    foreach (AlcoholType alcoholType in Enum.GetValues(typeof(AlcoholType)))
+                    {
+                        Console.WriteLine($"{(int)alcoholType}. {alcoholType}");
+                    }
+
+                    Console.Write("Enter the number corresponding to the alcohol type: ");
+
+                    int alcoholIndex;
+                    if (!int.TryParse(Console.ReadLine(), out alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
+                    {
+                        Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the alcohol type.");
+                        continue;
+                    }
+
+                    alcohol = (AlcoholType)alcoholIndex;
+                    break;
                 }
-
-                Console.Write("Enter the number corresponding to the alcohol type: ");
-
-                int alcoholIndex;
-                if (!int.TryParse(Console.ReadLine(), out alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
-                {
-                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the alcohol type.");
-                    continue;
-                }
-
-                alcohol = (AlcoholType)alcoholIndex;
-                break;
             }
 
             DifficultyLevel difficultyLevel;
@@ -157,22 +164,29 @@ namespace MixologyMatrix
             string steps = Console.ReadLine();
 
             int newDrinkId = nextId++;
-            Drink newDrink = new Drink(newDrinkId, name, type, ingredients, steps, alcohol, difficultyLevel, glassType, flavorProfile, occasionType);
-
+            Drink newDrink;
+            if (type == DrinkType.Alcoholic)
+            {
+                newDrink = new AlcoholicDrink(newDrinkId, name, type, ingredients, steps, difficultyLevel, glassType, flavorProfile, occasionType, alcohol);
+            }
+            else
+            {
+                newDrink = new Drink(newDrinkId, name, type, ingredients, steps, difficultyLevel, glassType, flavorProfile, occasionType);
+            }
             drinks.Add(newDrink);
             Console.WriteLine("New drink added successfully!");
         }
-
         public void SearchDrinks()
         {
             Console.WriteLine("Choose a filter to search by:");
             Console.WriteLine("1. Drink Name");
             Console.WriteLine("2. Drink Type");
             Console.WriteLine("3. Alcohol Type");
-            Console.WriteLine("4. Difficulty Level");
-            Console.WriteLine("5. Glass Type");
-            Console.WriteLine("6. Flavor Profile");
-            Console.WriteLine("7. Occasion Type");
+            Console.WriteLine("4. Non-Alcohol Drink Type");
+            Console.WriteLine("5. Difficulty Level");
+            Console.WriteLine("6. Glass Type");
+            Console.WriteLine("7. Flavor Profile");
+            Console.WriteLine("8. Occasion Type");
             Console.WriteLine("Enter your choice:");
 
             var choice = Console.ReadKey();
@@ -198,15 +212,18 @@ namespace MixologyMatrix
                     results = SearchByAlcoholType();
                     break;
                 case '4':
-                    results = SearchByDifficultyLevel();
+                    results = SearchByNonAlcoholType(); 
                     break;
                 case '5':
-                    results = SearchByGlassType();
+                    results = SearchByDifficultyLevel();
                     break;
                 case '6':
-                    results = SearchByFlavorProfile();
+                    results = SearchByGlassType();
                     break;
                 case '7':
+                    results = SearchByFlavorProfile();
+                    break;
+                case '8': 
                     results = SearchByOccasionType();
                     break;
                 default:
@@ -279,34 +296,54 @@ namespace MixologyMatrix
 
 
         }
+        public List<Drink> SearchByNonAlcoholType()
+        {
+            List<Drink> nonAlcoholicDrinks = drinks.Where(d => d.Type == DrinkType.NonAlcoholic).ToList();
 
+            if (nonAlcoholicDrinks.Count > 0)
+            {
+                Console.WriteLine($"Found {nonAlcoholicDrinks.Count} non-alcoholic drink(s):");
+                foreach (var drink in nonAlcoholicDrinks)
+                {
+                    Console.WriteLine($"- {drink.Name}");
+                    DisplayDrinkDetails(drink);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No non-alcoholic drinks found.");
+            }
+
+            return nonAlcoholicDrinks;
+        }
         private List<Drink> SearchByAlcoholType()
         {
             Console.WriteLine("Enter alcohol type (e.g., Vodka, Rum, Whiskey):");
             string input = Console.ReadLine();
-            AlcoholType alcoholType;
-            if (Enum.TryParse(input, out alcoholType))
+            if (!Enum.TryParse(input, true, out AlcoholType alcoholType))
             {
-                List<Drink> foundDrinks = searchService.SaerchByAlcoholType(alcoholType);
-
-                if (foundDrinks.Count > 0)
-                {
-                    Console.WriteLine($"Found {foundDrinks.Count} drink(s) with the alcohol type '{alcoholType}':");
-                    foreach (var drink in foundDrinks)
-                    {
-                        Console.WriteLine($"- {drink.Name}");
-                        DisplayDrinkDetails(drink); 
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"No drinks found with the alcohol type '{alcoholType}'.");
-                }
-
-                return foundDrinks;
+                Console.WriteLine("Invalid alcohol type.");
+                return new List<Drink>();
             }
-            Console.WriteLine("Invalid type");
-            return new List<Drink>();
+
+            List<AlcoholicDrink> matchingDrinks = searchService.SaerchByAlcoholType(alcoholType);
+
+            if (matchingDrinks.Count > 0)
+            {
+                Console.WriteLine($"Found {matchingDrinks.Count} drink(s) with the alcohol type '{alcoholType}':");
+                foreach (var drink in matchingDrinks)
+                {
+                    Console.WriteLine($"- {drink.Name}");
+                    DisplayDrinkDetails(drink);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"No drinks found with the alcohol type '{alcoholType}'.");
+            }
+
+            // Cast the list of AlcoholicDrink to a list of Drink
+            return matchingDrinks.Cast<Drink>().ToList();
         }
         private List<Drink> SearchByDifficultyLevel()
         {
@@ -487,7 +524,9 @@ namespace MixologyMatrix
                 drinkToEdit.Type = type;
             }
 
-            AlcoholType alcohol;
+            if(drinkToEdit.Type == DrinkType.Alcoholic && drinkToEdit is AlcoholicDrink alcoholicDrink)
+            {
+                AlcoholType alcohol;
             while (true)
             {
                 Console.WriteLine("Select the alcohol type (or press Enter to keep current):");
@@ -508,10 +547,12 @@ namespace MixologyMatrix
                 }
 
                 alcohol = (AlcoholType)alcoholIndex;
-                drinkToEdit.Alcohol = alcohol;
+                alcoholicDrink.Alcohol = alcohol;
                 break;
             }
 
+         }
+            
             DifficultyLevel difficultyLevel;
             while (true)
             {

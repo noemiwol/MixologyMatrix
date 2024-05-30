@@ -21,7 +21,8 @@ namespace MixologyMatrix
         Gin,
         Brandy,
         Liqueur,
-        Other
+        Other,
+        None
     }
 
     public enum DifficultyLevel
