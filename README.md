@@ -1,4 +1,4 @@
-# MixMaster
+# MixologyMatrix
 
 MixologyMatrix to prosta aplikacja konsolowa służąca do zarządzania przepisami na drinki. Aplikacja pozwala na wyszukiwanie, dodawanie, edytowanie i usuwanie przepisów, tworząc Twoją osobistą bibliotekę drinków.
 
@@ -20,7 +20,7 @@ MixologyMatrix to prosta aplikacja konsolowa służąca do zarządzania przepisa
 
 1. **Pobierz repozytorium**:
     ```bash
-    git clone https://github.com/twoje_konto/MixologyMatrix.git
+    git clone [https://github.com/twoje_konto/MixologyMatrix.git](https://github.com/noemiwol/MixologyMatrix.git)
     cd mixologyMatrix
     ```
 
