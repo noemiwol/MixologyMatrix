@@ -61,7 +61,7 @@ namespace MixologyMatrix
                 {
                     case '1':
                         Console.WriteLine("Enter the ID of the drink to remove:");
-                        var drinkIdInput = Console.ReadLine();
+                        string drinkIdInput = Console.ReadLine();
                         if (int.TryParse(drinkIdInput, out int drinkId))
                         {
                             RemoveDrinkById(drinkId);
@@ -73,7 +73,7 @@ namespace MixologyMatrix
                         break;
                     case '2':
                         Console.WriteLine("Enter the name of the drink to remove:");
-                        var drinkName = Console.ReadLine();
+                        string drinkName = Console.ReadLine();
                         RemoveDrinkByName(drinkName);
                         break;
                     default:
