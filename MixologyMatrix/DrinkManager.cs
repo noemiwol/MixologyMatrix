@@ -39,10 +39,10 @@ namespace MixologyMatrix
             Console.WriteLine("Adding a new drink recipe...");
 
             Console.Write("Enter the name of the drink: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             Console.WriteLine("Is the drink alcoholic or non-alcoholic? (A/N)");
-            string typeInput = Console.ReadLine().ToUpper();
+            var typeInput = Console.ReadLine().ToUpper();
             DrinkType type = (typeInput == "A") ? DrinkType.Alcoholic : DrinkType.NonAlcoholic;
 
             AlcoholType alcohol = AlcoholType.None;
@@ -158,12 +158,12 @@ namespace MixologyMatrix
             
 
             Console.Write("Enter the ingredients of the drink: ");
-            string ingredients = Console.ReadLine();
+            var ingredients = Console.ReadLine();
 
             Console.Write("Enter the steps of the drink: ");
-            string steps = Console.ReadLine();
+            var steps = Console.ReadLine();
 
-            int newDrinkId = nextId++;
+            var newDrinkId = nextId++;
             Drink newDrink;
             if (type == DrinkType.Alcoholic)
             {
@@ -235,7 +235,7 @@ namespace MixologyMatrix
         private List<Drink> SearchByDrinkName()
         {
             Console.WriteLine("Enter the name of the drink:");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             List<Drink> foundDrinks = searchService.SearchByDrinkName(name);
 
@@ -348,7 +348,7 @@ namespace MixologyMatrix
         private List<Drink> SearchByDifficultyLevel()
         {
             Console.WriteLine("Enter difficulty level (Easy, Medium, Hard): (E/M/H)");
-            string typeInput = Console.ReadLine().ToUpper();
+            var typeInput = Console.ReadLine().ToUpper();
 
             DifficultyLevel difficultyLevel;
             if (typeInput == "E")
@@ -418,7 +418,7 @@ namespace MixologyMatrix
         private List<Drink> SearchByFlavorProfile()
         {
             Console.WriteLine("Enter flavor profile (e.g., Sweet, Sour):");
-            string input = Console.ReadLine();
+            var input = Console.ReadLine();
             FlavorProfile profile;
             if (Enum.TryParse(input, out profile))
             {
@@ -510,14 +510,14 @@ namespace MixologyMatrix
             DisplayDrinkDetails(drinkToEdit);
 
             Console.Write("Enter the new name of the drink (or press Enter to keep current): ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
             if (!string.IsNullOrEmpty(name))
             {
                 drinkToEdit.Name = name;
             }
 
             Console.WriteLine("Is the drink alcoholic or non-alcoholic? (A/N or press Enter to keep current)");
-            string typeInput = Console.ReadLine().ToUpper();
+            var typeInput = Console.ReadLine().ToUpper();
             if (!string.IsNullOrEmpty(typeInput))
             {
                 DrinkType type = (typeInput == "A") ? DrinkType.Alcoholic : DrinkType.NonAlcoholic;
@@ -536,7 +536,7 @@ namespace MixologyMatrix
                 }
 
                 Console.Write("Enter the number corresponding to the alcohol type: ");
-                string alcoholInput = Console.ReadLine();
+                var alcoholInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(alcoholInput)) break;
 
                 int alcoholIndex;
@@ -563,7 +563,7 @@ namespace MixologyMatrix
                 }
 
                 Console.Write("Enter the number corresponding to the difficulty level: ");
-                string difficultyInput = Console.ReadLine();
+                var difficultyInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(difficultyInput)) break;
 
                 int difficultyLevelIndex;
@@ -613,7 +613,7 @@ namespace MixologyMatrix
                 }
 
                 Console.Write("Enter the number corresponding to the flavor profile: ");
-                string flavorInput = Console.ReadLine();
+                var flavorInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(flavorInput)) break;
 
                 int flavorIndex;
@@ -638,7 +638,7 @@ namespace MixologyMatrix
                 }
 
                 Console.Write("Enter the number corresponding to the occasion type: ");
-                string occasionInput = Console.ReadLine();
+                var occasionInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(occasionInput)) break;
 
                 int occasionIndex;
@@ -653,14 +653,14 @@ namespace MixologyMatrix
             }
 
             Console.Write("Enter the new ingredients of the drink (or press Enter to keep current): ");
-            string ingredients = Console.ReadLine();
+            var ingredients = Console.ReadLine();
             if (!string.IsNullOrEmpty(ingredients))
             {
                 drinkToEdit.Ingredients = ingredients;
             }
 
             Console.Write("Enter the new steps of the drink (or press Enter to keep current): ");
-            string steps = Console.ReadLine();
+            var steps = Console.ReadLine();
             if (!string.IsNullOrEmpty(steps))
             {
                 drinkToEdit.Steps = steps;

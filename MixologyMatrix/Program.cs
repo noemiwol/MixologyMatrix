@@ -25,14 +25,14 @@ namespace MixologyMatrix
                 }
                 Console.WriteLine("Enter your choice and press Enter:");
                 var operation = Console.ReadKey();
-                char operationKey = operation.KeyChar;
+                var operationKey = operation.KeyChar;
                 Console.WriteLine("");
                 if (!char.IsDigit(operationKey))
                 {
                     Console.WriteLine("Invalid action. Please enter a number corresponding to the menu option.");
                     continue;
                 }
-                int chosenOption = int.Parse(operationKey.ToString());
+                var chosenOption = int.Parse(operationKey.ToString());
                 if(chosenOption < 1 || chosenOption > mainMenu.Count)
                 {
                     Console.WriteLine("Invalid action. Please enter a number corresponding to the menu option.");
