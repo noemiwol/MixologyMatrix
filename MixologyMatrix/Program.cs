@@ -7,6 +7,8 @@ namespace MixologyMatrix
         static List<Drink> drinks = new List<Drink>();
         static DrinkManager drinkManager = new DrinkManager(drinks);
         static DrinkRemover drinkRemover = new DrinkRemover(drinks);
+        static DrinkSearchManager drinkSearchMamager = new DrinkSearchManager(drinks);
+        static DrinkViewer drinkViewer = new DrinkViewer(drinks); 
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the MixMaster - your personal library of drink recipes!");
@@ -42,7 +44,7 @@ namespace MixologyMatrix
                 switch (operation.KeyChar)
                 {
                     case '1':
-                        drinkManager.SearchDrinks();
+                        drinkSearchMamager.SearchDrinks();
                         break;
                     case '2':
                         drinkManager.AddDrink();
@@ -54,7 +56,7 @@ namespace MixologyMatrix
                         drinkRemover.DrinkRemoverMenu();
                         break;
                     case '5':
-                        drinkManager.ListAllDrinks();
+                        drinkViewer.ListAllDrinks();
                         break;
                     case '6':
                         Console.WriteLine("Exiting the program...");
