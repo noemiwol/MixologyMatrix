@@ -32,7 +32,7 @@ namespace MixologyMatrix
                     Console.WriteLine("Invalid action. Please enter a number corresponding to the menu option.");
                     continue;
                 }
-                int chosenOption = int.Parse(operationKey.ToString());
+                var chosenOption = int.Parse(operationKey.ToString());
                 if(chosenOption < 1 || chosenOption > mainMenu.Count)
                 {
                     Console.WriteLine("Invalid action. Please enter a number corresponding to the menu option.");
