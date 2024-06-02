@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MixologyMatrix.App.Abstract;
+using MixologyMatrix.Domain.Entity;
 
-namespace MixologyMatrix
+namespace MixologyMatrix.App.Concrete
 {
-    public class MenuActionService
+    public class MenuActionService : IMenuActionService
     {
         public List<MenuAction> MenuActions { get; set; }
 

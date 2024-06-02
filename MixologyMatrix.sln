@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrix", "MixologyMatrix\MixologyMatrix.csproj", "{19BBC0F1-A3FF-4FDF-AEC9-1868A9392231}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixologyMatrix", "MixologyMatrix\MixologyMatrix.csproj", "{19BBC0F1-A3FF-4FDF-AEC9-1868A9392231}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrix.App", "MixologyMatrix.App\MixologyMatrix.App.csproj", "{70E9A6BD-077B-427B-ACA8-76072CF3909D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrix.Domain", "MixologyMatrix.Domain\MixologyMatrix.Domain.csproj", "{A170CE05-34A0-4275-9EF4-8A7156863AA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{19BBC0F1-A3FF-4FDF-AEC9-1868A9392231}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19BBC0F1-A3FF-4FDF-AEC9-1868A9392231}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19BBC0F1-A3FF-4FDF-AEC9-1868A9392231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70E9A6BD-077B-427B-ACA8-76072CF3909D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70E9A6BD-077B-427B-ACA8-76072CF3909D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70E9A6BD-077B-427B-ACA8-76072CF3909D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70E9A6BD-077B-427B-ACA8-76072CF3909D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A170CE05-34A0-4275-9EF4-8A7156863AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A170CE05-34A0-4275-9EF4-8A7156863AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A170CE05-34A0-4275-9EF4-8A7156863AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A170CE05-34A0-4275-9EF4-8A7156863AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

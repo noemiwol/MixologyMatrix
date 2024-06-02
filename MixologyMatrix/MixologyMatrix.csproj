@@ -15,4 +15,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MixologyMatrix.App\MixologyMatrix.App.csproj" />
+    <ProjectReference Include="..\MixologyMatrix.Domain\MixologyMatrix.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

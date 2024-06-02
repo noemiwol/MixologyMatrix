@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using MixologyMatrix.Domain.Entity;
 
 namespace MixologyMatrix
 {
@@ -45,6 +40,7 @@ namespace MixologyMatrix
             Console.WriteLine($"Drink with ID '{id}' not found!");
             return false;
         }
+
         public void DrinkRemoverMenu()
         {
             while (true)
@@ -71,11 +67,13 @@ namespace MixologyMatrix
                             Console.WriteLine("Invalid ID. Please enter a valid number.");
                         }
                         break;
+
                     case '2':
                         Console.WriteLine("Enter the name of the drink to remove:");
                         var drinkName = Console.ReadLine();
                         RemoveDrinkByName(drinkName);
                         break;
+
                     default:
                         Console.WriteLine("Invalid choice. Please enter 1 or 2.");
                         break;

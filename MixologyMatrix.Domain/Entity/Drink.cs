@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MixologyMatrix.Domain.Common;
+using MixologyMatrix.Domain.Enums;
 
-namespace MixologyMatrix
+namespace MixologyMatrix.Domain.Entity
 {
-    public class Drink
+    public class Drink : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public DrinkType Type { get; set; }
         public string Ingredients { get; set; }
@@ -18,7 +14,7 @@ namespace MixologyMatrix
         public FlavorProfile FlavorProfile { get; set; }
         public OccasionType OccasionType { get; set; }
 
-        public Drink(int id,string name, DrinkType type, string ingredients, string steps, DifficultyLevel difficultyLevel, GlassType glassType, FlavorProfile flavorProfile, OccasionType occasionType)
+        public Drink(int id, string name, DrinkType type, string ingredients, string steps, DifficultyLevel difficultyLevel, GlassType glassType, FlavorProfile flavorProfile, OccasionType occasionType)
         {
             Id = id;
             Name = name;
@@ -30,7 +26,7 @@ namespace MixologyMatrix
             FlavorProfile = flavorProfile;
             OccasionType = occasionType;
         }
-       
+
         public override string ToString()
         {
             return $"{Name} ({Type}): {Ingredients}";
