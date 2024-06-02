@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MixologyMatrix.App.Concrete;
+using MixologyMatrix.Domain.Enums;
+using MixologyMatrix.Domain.Entity;
 
 namespace MixologyMatrix
 {
@@ -11,12 +9,14 @@ namespace MixologyMatrix
         private DrinkViewer viewer;
         private List<Drink> drinks;
         private DrinkSearchService searchService;
+
         public DrinkSearchManager(List<Drink> drinks)
         {
             this.drinks = drinks;
             this.searchService = new DrinkSearchService(drinks);
             this.viewer = new DrinkViewer(drinks);
         }
+
         public void SearchDrinks()
         {
             Console.WriteLine("Choose a filter to search by:");
@@ -46,33 +46,41 @@ namespace MixologyMatrix
                 case '1':
                     results = SearchByDrinkName();
                     break;
+
                 case '2':
                     results = SearchByDrinkType();
                     break;
+
                 case '3':
                     results = SearchByAlcoholType();
                     break;
+
                 case '4':
                     results = SearchByNonAlcoholType();
                     break;
+
                 case '5':
                     results = SearchByDifficultyLevel();
                     break;
+
                 case '6':
                     results = SearchByGlassType();
                     break;
+
                 case '7':
                     results = SearchByFlavorProfile();
                     break;
+
                 case '8':
                     results = SearchByOccasionType();
                     break;
+
                 default:
                     Console.WriteLine("Invalid choice");
                     return;
             }
-
         }
+
         private List<Drink> SearchByDrinkName()
         {
             Console.WriteLine("Enter the name of the drink:");
@@ -95,8 +103,8 @@ namespace MixologyMatrix
             }
 
             return foundDrinks;
-
         }
+
         private List<Drink> SearchByDrinkType()
         {
             Console.WriteLine("Enter drink type: alcoholic or non-alcoholic? (A/N)");
@@ -106,7 +114,6 @@ namespace MixologyMatrix
             if (typeInput == "A")
             {
                 drinkType = DrinkType.Alcoholic;
-
             }
             else if (typeInput == "N")
             {
@@ -125,7 +132,7 @@ namespace MixologyMatrix
                 foreach (var drink in foundDrinks)
                 {
                     Console.WriteLine($"- {drink.Name}");
-                    viewer.DisplayDrinkDetails(drink); 
+                    viewer.DisplayDrinkDetails(drink);
                 }
             }
             else
@@ -134,9 +141,8 @@ namespace MixologyMatrix
             }
 
             return foundDrinks;
-
-
         }
+
         public List<Drink> SearchByNonAlcoholType()
         {
             List<Drink> nonAlcoholicDrinks = drinks.Where(d => d.Type == DrinkType.NonAlcoholic).ToList();
@@ -157,6 +163,7 @@ namespace MixologyMatrix
 
             return nonAlcoholicDrinks;
         }
+
         private List<Drink> SearchByAlcoholType()
         {
             Console.WriteLine("Enter alcohol type (e.g., Vodka, Rum, Whiskey):");
@@ -186,6 +193,7 @@ namespace MixologyMatrix
             // Cast the list of AlcoholicDrink to a list of Drink
             return matchingDrinks.Cast<Drink>().ToList();
         }
+
         private List<Drink> SearchByDifficultyLevel()
         {
             Console.WriteLine("Enter difficulty level (Easy, Medium, Hard): (E/M/H)");
@@ -228,6 +236,7 @@ namespace MixologyMatrix
 
             return foundDrinks;
         }
+
         private List<Drink> SearchByGlassType()
         {
             Console.WriteLine("Enter glass type (e.g., Highball, Martini):");
@@ -256,6 +265,7 @@ namespace MixologyMatrix
             Console.WriteLine("Invalid type");
             return new List<Drink>();
         }
+
         private List<Drink> SearchByFlavorProfile()
         {
             Console.WriteLine("Enter flavor profile (e.g., Sweet, Sour):");
@@ -284,6 +294,7 @@ namespace MixologyMatrix
             Console.WriteLine("Invalid type");
             return new List<Drink>();
         }
+
         private List<Drink> SearchByOccasionType()
         {
             Console.WriteLine("Enter occasion type (e.g., Party, Dinner):");

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MixologyMatrix.App.Abstract;
+using MixologyMatrix.Domain.Enums;
+using MixologyMatrix.Domain.Entity;
 
-namespace MixologyMatrix
+namespace MixologyMatrix.App.Concrete
 {
-    public class DrinkSearchService
+    public class DrinkSearchService : IDrinkSearchService
     {
         private List<Drink> drinks;
         private List<AlcoholicDrink> drinks_;
@@ -15,14 +13,17 @@ namespace MixologyMatrix
         {
             this.drinks = drinks;
         }
+
         public List<Drink> SearchByDrinkName(string name)
         {
             return drinks.Where(d => d.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+
         public List<Drink> SearchByDrinkType(DrinkType drinkType)
         {
             return drinks.Where(d => d.Type == drinkType).ToList();
         }
+
         public List<AlcoholicDrink> SaerchByAlcoholType(AlcoholType alcoholType)
         {
             return drinks.OfType<AlcoholicDrink>().Where(a => a.Alcohol == alcoholType).ToList();
@@ -33,7 +34,7 @@ namespace MixologyMatrix
             return drinks.Where(d => d.DifficultyLevel == difficultyLevel).ToList();
         }
 
-        public List<Drink> SaerchByGlassType(GlassType  glassType)
+        public List<Drink> SaerchByGlassType(GlassType glassType)
         {
             return drinks.Where(g => g.GlassType == glassType).ToList();
         }

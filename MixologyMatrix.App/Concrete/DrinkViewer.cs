@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MixologyMatrix.Domain.Entity;
 
 namespace MixologyMatrix
 {
     public class DrinkViewer
     {
         private List<Drink> drinks;
+
         public DrinkViewer(List<Drink> drinks)
         {
             this.drinks = drinks;
         }
+
         public void DisplayDrinkDetails(Drink drink)
         {
             Console.WriteLine($"ID: {drink.Id}");

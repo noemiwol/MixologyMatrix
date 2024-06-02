@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using MixologyMatrix.Domain.Enums;
 
-namespace MixologyMatrix
+namespace MixologyMatrix.Domain.Entity
 {
     public class AlcoholicDrink : Drink
     {
         public AlcoholType Alcohol { get; set; }
+
         public AlcoholicDrink(int id, string name, DrinkType type, string ingredients, string steps,
                           DifficultyLevel difficultyLevel, GlassType glassType, FlavorProfile flavorProfile,
                           OccasionType occasionType, AlcoholType alcohol)
@@ -21,6 +19,5 @@ namespace MixologyMatrix
         {
             return $"{base.ToString()}, Alcohol: {Alcohol}";
         }
-
     }
 }

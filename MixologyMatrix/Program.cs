@@ -1,15 +1,17 @@
-﻿using System.ComponentModel;
+﻿using MixologyMatrix.App.Concrete;
+using MixologyMatrix.Domain.Entity;
 
-namespace MixologyMatrix
+namespace MixologyMatrix.App
 {
     public class Program
     {
-        static List<Drink> drinks = new List<Drink>();
-        static DrinkManager drinkManager = new DrinkManager(drinks);
-        static DrinkRemover drinkRemover = new DrinkRemover(drinks);
-        static DrinkSearchManager drinkSearchMamager = new DrinkSearchManager(drinks);
-        static DrinkViewer drinkViewer = new DrinkViewer(drinks); 
-        static void Main(string[] args)
+        private static List<Drink> drinks = new List<Drink>();
+        private static DrinkManager drinkManager = new DrinkManager(drinks);
+        private static DrinkRemover drinkRemover = new DrinkRemover(drinks);
+        private static DrinkSearchManager drinkSearchMamager = new DrinkSearchManager(drinks);
+        private static DrinkViewer drinkViewer = new DrinkViewer(drinks);
+
+        private static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the MixMaster - your personal library of drink recipes!");
             Console.WriteLine("Discover the world of unique cocktails and non-alcoholic drinks, add your favorite recipes, edit and experiment with new flavors.");
@@ -35,7 +37,7 @@ namespace MixologyMatrix
                     continue;
                 }
                 var chosenOption = int.Parse(operationKey.ToString());
-                if(chosenOption < 1 || chosenOption > mainMenu.Count)
+                if (chosenOption < 1 || chosenOption > mainMenu.Count)
                 {
                     Console.WriteLine("Invalid action. Please enter a number corresponding to the menu option.");
                     continue;
@@ -46,29 +48,33 @@ namespace MixologyMatrix
                     case '1':
                         drinkSearchMamager.SearchDrinks();
                         break;
+
                     case '2':
                         drinkManager.AddDrink();
                         break;
+
                     case '3':
                         drinkManager.EditDrink();
                         break;
+
                     case '4':
                         drinkRemover.DrinkRemoverMenu();
                         break;
+
                     case '5':
                         drinkViewer.ListAllDrinks();
                         break;
+
                     case '6':
                         Console.WriteLine("Exiting the program...");
                         Environment.Exit(0);
                         break;
+
                     default:
                         Console.WriteLine("Action you entered does not exist. Please try again.");
                         break;
                 }
             }
-           
-
         }
 
         private static MenuActionService Initialize(MenuActionService menuActionService)
@@ -83,4 +89,3 @@ namespace MixologyMatrix
         }
     }
 }
-//stworzyc klase drink bezalkocholwy, ktory bedzie dziedziczyl po klasie bazowej

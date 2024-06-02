@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MixologyMatrix.App.Concrete;
+using MixologyMatrix.Domain.Enums;
+using MixologyMatrix.Domain.Entity;
 
 namespace MixologyMatrix
 {
@@ -18,7 +16,7 @@ namespace MixologyMatrix
             this.drinks = drinks;
             this.searchService = new DrinkSearchService(drinks);
         }
-        
+
         public void AddDrink()
         {
             Console.WriteLine("Adding a new drink recipe...");
@@ -31,7 +29,7 @@ namespace MixologyMatrix
             DrinkType type = (typeInput == "A") ? DrinkType.Alcoholic : DrinkType.NonAlcoholic;
 
             AlcoholType alcohol = AlcoholType.None;
-            if(type == DrinkType.Alcoholic)
+            if (type == DrinkType.Alcoholic)
             {
                 while (true)
                 {
@@ -90,14 +88,13 @@ namespace MixologyMatrix
                 Console.WriteLine("Enter the number corresponding to the glasss type");
 
                 int glassIndex;
-                if(!int.TryParse(Console.ReadLine(), out glassIndex) || !Enum.IsDefined(typeof(GlassType), glassIndex))
+                if (!int.TryParse(Console.ReadLine(), out glassIndex) || !Enum.IsDefined(typeof(GlassType), glassIndex))
                 {
                     Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the  glasss type.");
                     continue;
                 }
                 glassType = (GlassType)glassIndex;
-                break ;
-
+                break;
             }
 
             FlavorProfile flavorProfile;
@@ -111,7 +108,7 @@ namespace MixologyMatrix
 
                 Console.WriteLine("Enter the number corresponding to the flavor profile");
                 int flavorIndex;
-                if(!int.TryParse(Console.ReadLine(), out flavorIndex) || !Enum.IsDefined(typeof(FlavorProfile), flavorIndex))
+                if (!int.TryParse(Console.ReadLine(), out flavorIndex) || !Enum.IsDefined(typeof(FlavorProfile), flavorIndex))
                 {
                     Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the  glasss type.");
                     continue;
@@ -131,13 +128,13 @@ namespace MixologyMatrix
 
                 Console.WriteLine("Enter the number corresponding to the occasion type");
                 int occasionIndex;
-                if(!int.TryParse(Console.ReadLine(), out occasionIndex) || !Enum.IsDefined(typeof(OccasionType), occasionIndex))
+                if (!int.TryParse(Console.ReadLine(), out occasionIndex) || !Enum.IsDefined(typeof(OccasionType), occasionIndex))
                 {
                     Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the  occasion type.");
                     continue;
                 }
-               occasionType = (OccasionType)occasionIndex;
-               break;
+                occasionType = (OccasionType)occasionIndex;
+                break;
             }
 
             Console.Write("Enter the ingredients of the drink: ");
@@ -159,6 +156,7 @@ namespace MixologyMatrix
             drinks.Add(newDrink);
             Console.WriteLine("New drink added successfully!");
         }
+
         public void EditDrink()
         {
             viewer.ListAllDrinks();
@@ -195,35 +193,34 @@ namespace MixologyMatrix
                 drinkToEdit.Type = type;
             }
 
-            if(drinkToEdit.Type == DrinkType.Alcoholic && drinkToEdit is AlcoholicDrink alcoholicDrink)
+            if (drinkToEdit.Type == DrinkType.Alcoholic && drinkToEdit is AlcoholicDrink alcoholicDrink)
             {
                 AlcoholType alcohol;
-            while (true)
-            {
-                Console.WriteLine("Select the alcohol type (or press Enter to keep current):");
-                foreach (AlcoholType alcoholType in Enum.GetValues(typeof(AlcoholType)))
+                while (true)
                 {
-                    Console.WriteLine($"{(int)alcoholType}. {alcoholType}");
+                    Console.WriteLine("Select the alcohol type (or press Enter to keep current):");
+                    foreach (AlcoholType alcoholType in Enum.GetValues(typeof(AlcoholType)))
+                    {
+                        Console.WriteLine($"{(int)alcoholType}. {alcoholType}");
+                    }
+
+                    Console.Write("Enter the number corresponding to the alcohol type: ");
+                    var alcoholInput = Console.ReadLine();
+                    if (string.IsNullOrEmpty(alcoholInput)) break;
+
+                    int alcoholIndex;
+                    if (!int.TryParse(alcoholInput, out alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
+                    {
+                        Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the alcohol type.");
+                        continue;
+                    }
+
+                    alcohol = (AlcoholType)alcoholIndex;
+                    alcoholicDrink.Alcohol = alcohol;
+                    break;
                 }
-
-                Console.Write("Enter the number corresponding to the alcohol type: ");
-                var alcoholInput = Console.ReadLine();
-                if (string.IsNullOrEmpty(alcoholInput)) break;
-
-                int alcoholIndex;
-                if (!int.TryParse(alcoholInput, out alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
-                {
-                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the alcohol type.");
-                    continue;
-                }
-
-                alcohol = (AlcoholType)alcoholIndex;
-                alcoholicDrink.Alcohol = alcohol;
-                break;
             }
 
-         }
-            
             DifficultyLevel difficultyLevel;
             while (true)
             {
@@ -339,6 +336,5 @@ namespace MixologyMatrix
 
             Console.WriteLine($"Drink ID {drinkId} updated successfully!");
         }
-
     }
 }
