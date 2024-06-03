@@ -1,6 +1,6 @@
 ﻿using MixologyMatrix.App.Concrete;
-using MixologyMatrix.Domain.Enums;
 using MixologyMatrix.Domain.Entity;
+using MixologyMatrix.Domain.Enums;
 
 namespace MixologyMatrix
 {

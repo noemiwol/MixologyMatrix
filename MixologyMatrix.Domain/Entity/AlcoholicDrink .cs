@@ -1,5 +1,4 @@
-﻿
-using MixologyMatrix.Domain.Enums;
+﻿using MixologyMatrix.Domain.Enums;
 
 namespace MixologyMatrix.Domain.Entity
 {

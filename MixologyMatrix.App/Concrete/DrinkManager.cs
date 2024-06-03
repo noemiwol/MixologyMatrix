@@ -1,20 +1,41 @@
 ﻿using MixologyMatrix.App.Concrete;
-using MixologyMatrix.Domain.Enums;
 using MixologyMatrix.Domain.Entity;
+using MixologyMatrix.Domain.Enums;
 
 namespace MixologyMatrix
 {
     public class DrinkManager
     {
         private List<Drink> drinks;
+        private List<AlcoholicDrink> alcoholicDrinks;
         private static int nextId = 1;
         private DrinkSearchService searchService;
         private DrinkViewer viewer;
+        private List<AlcoholicDrink> alcoholicDrink;
 
         public DrinkManager(List<Drink> drinks)
         {
             this.drinks = drinks;
+            this.viewer = new DrinkViewer(drinks);
             this.searchService = new DrinkSearchService(drinks);
+        }
+
+        public DrinkManager(List<AlcoholicDrink> alcoholicDrink)
+        {
+            this.alcoholicDrink = alcoholicDrink;
+        }
+
+        public DrinkManager(List<Drink> drinks, DrinkViewer viewer)
+        {
+            this.drinks = drinks;
+            this.viewer = viewer;
+            this.searchService = new DrinkSearchService(drinks);
+        }
+
+        public DrinkManager(List<AlcoholicDrink> alcoholicDrink, DrinkViewer viewer)
+        {
+            this.alcoholicDrink = alcoholicDrink;
+            this.viewer = viewer;
         }
 
         public void AddDrink()
@@ -159,6 +180,7 @@ namespace MixologyMatrix
 
         public void EditDrink()
         {
+            // var viewer = new DrinkViewer()
             viewer.ListAllDrinks();
             Console.WriteLine("Enter the ID of the drink you want to edit:");
             int drinkId;

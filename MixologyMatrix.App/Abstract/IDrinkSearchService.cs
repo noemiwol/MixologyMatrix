@@ -1,5 +1,5 @@
-﻿using MixologyMatrix.Domain.Enums;
-using MixologyMatrix.Domain.Entity;
+﻿using MixologyMatrix.Domain.Entity;
+using MixologyMatrix.Domain.Enums;
 
 namespace MixologyMatrix.App.Abstract
 {

@@ -5,10 +5,16 @@ namespace MixologyMatrix
     public class DrinkViewer
     {
         private List<Drink> drinks;
+        private List<AlcoholicDrink> alcoholicDrinks;
 
         public DrinkViewer(List<Drink> drinks)
         {
             this.drinks = drinks;
+        }
+
+        public DrinkViewer(List<AlcoholicDrink> alcoholicDrinks)
+        {
+            this.alcoholicDrinks = alcoholicDrinks;
         }
 
         public void DisplayDrinkDetails(Drink drink)
