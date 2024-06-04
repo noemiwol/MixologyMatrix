@@ -5,12 +5,13 @@ namespace MixologyMatrix
     public class DrinkViewer
     {
         private List<Drink> drinks;
+        private List<AlcoholicDrink> alcoholicDrink;
 
-        public DrinkViewer(List<Drink> drinks)
+        public DrinkViewer(List<Drink> drinks, List<AlcoholicDrink> alcoholicDrink)
         {
             this.drinks = drinks;
+            this.alcoholicDrink = alcoholicDrink;
         }
-
         public void DisplayDrinkDetails(Drink drink)
         {
             Console.WriteLine($"ID: {drink.Id}");
@@ -31,17 +32,30 @@ namespace MixologyMatrix
 
         public void ListAllDrinks()
         {
-            if (drinks.Count == 0)
-            {
+            if((drinks == null || drinks.Count == 0) && (alcoholicDrink == null || alcoholicDrink.Count == 0))
+    {
                 Console.WriteLine("No drinks available");
                 return;
             }
 
-            Console.WriteLine("Listing all drink recipes ");
-            foreach (var drink in drinks)
+            Console.WriteLine("Listing all drink recipes");
+
+            if (drinks != null && drinks.Count > 0)
             {
-                Console.WriteLine($"- {drink.Name}");
-                DisplayDrinkDetails(drink);
+                foreach (var drink in drinks)
+                {
+                    Console.WriteLine($"- {drink.Name} (ID: {drink.Id})");
+                    DisplayDrinkDetails(drink);
+                }
+            }
+
+            if (alcoholicDrink != null && alcoholicDrink.Count > 0)
+            {
+                foreach (var drink in alcoholicDrink)
+                {
+                    Console.WriteLine($"- {drink.Name} (ID: {drink.Id})");
+                    DisplayDrinkDetails(drink);
+                }
             }
         }
     }

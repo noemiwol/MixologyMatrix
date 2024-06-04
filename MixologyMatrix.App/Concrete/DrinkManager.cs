@@ -1,21 +1,41 @@
 ﻿using MixologyMatrix.App.Concrete;
-using MixologyMatrix.Domain.Enums;
 using MixologyMatrix.Domain.Entity;
+using MixologyMatrix.Domain.Enums;
 
 namespace MixologyMatrix
 {
     public class DrinkManager
     {
-        private List<Drink> drinks;
-        private static int nextId = 1;
+        private List<AlcoholicDrink> alcoholicDrinks = new List<AlcoholicDrink>();
+        private List<Drink> drinks = new List<Drink>();
+        private int nextId = 1;
         private DrinkSearchService searchService;
         private DrinkViewer viewer;
-
-        public DrinkManager(List<Drink> drinks)
+        public DrinkManager(List<Drink> drinks, List<AlcoholicDrink> alcoholicDrinks)
         {
             this.drinks = drinks;
+            this.alcoholicDrinks = alcoholicDrinks;
+            this.viewer = new DrinkViewer(drinks, alcoholicDrinks); 
+            this.searchService = new DrinkSearchService(drinks, alcoholicDrinks); 
+        }
+
+        /*public DrinkManager(List<AlcoholicDrink> alcoholicDrink)
+        {
+            this.alcoholicDrinks = alcoholicDrink;
+        }
+
+        public DrinkManager(List<Drink> drinks, DrinkViewer viewer)
+        {
+            this.drinks = drinks;
+            this.viewer = viewer;
             this.searchService = new DrinkSearchService(drinks);
         }
+
+        public DrinkManager(List<AlcoholicDrink> alcoholicDrink, DrinkViewer viewer)
+        {
+            this.alcoholicDrink = alcoholicDrink;
+            this.viewer = viewer;
+        }*/
 
         public void AddDrink()
         {
@@ -23,6 +43,7 @@ namespace MixologyMatrix
 
             Console.Write("Enter the name of the drink: ");
             var name = Console.ReadLine();
+
 
             Console.WriteLine("Is the drink alcoholic or non-alcoholic? (A/N)");
             var typeInput = Console.ReadLine().ToUpper();
@@ -144,21 +165,28 @@ namespace MixologyMatrix
             var steps = Console.ReadLine();
 
             var newDrinkId = nextId++;
-            Drink newDrink;
             if (type == DrinkType.Alcoholic)
             {
-                newDrink = new AlcoholicDrink(newDrinkId, name, type, ingredients, steps, difficultyLevel, glassType, flavorProfile, occasionType, alcohol);
+                var newAlcoholicDrink = new AlcoholicDrink(newDrinkId, name, type, ingredients, steps, difficultyLevel, glassType, flavorProfile, occasionType, alcohol);
+                alcoholicDrinks.Add(newAlcoholicDrink); 
             }
             else
             {
-                newDrink = new Drink(newDrinkId, name, type, ingredients, steps, difficultyLevel, glassType, flavorProfile, occasionType);
+                var newDrink = new Drink(newDrinkId, name, type, ingredients, steps, difficultyLevel, glassType, flavorProfile, occasionType);
+                drinks.Add(newDrink);
             }
-            drinks.Add(newDrink);
             Console.WriteLine("New drink added successfully!");
         }
 
         public void EditDrink()
         {
+            if ((drinks == null || drinks.Count == 0) && (alcoholicDrinks == null || alcoholicDrinks.Count == 0))
+            {
+                Console.WriteLine("No drinks available to edit.");
+                return;
+            }
+
+            var viewer = new DrinkViewer(drinks, alcoholicDrinks);
             viewer.ListAllDrinks();
             Console.WriteLine("Enter the ID of the drink you want to edit:");
             int drinkId;
@@ -168,7 +196,7 @@ namespace MixologyMatrix
                 return;
             }
 
-            Drink drinkToEdit = drinks.FirstOrDefault(d => d.Id == drinkId);
+            Drink drinkToEdit = drinks.FirstOrDefault(d => d.Id == drinkId) ?? alcoholicDrinks.FirstOrDefault(d => d.Id == drinkId);
             if (drinkToEdit == null)
             {
                 Console.WriteLine($"Drink with ID {drinkId} not found.");

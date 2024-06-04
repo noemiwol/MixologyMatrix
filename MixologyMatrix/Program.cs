@@ -6,10 +6,12 @@ namespace MixologyMatrix.App
     public class Program
     {
         private static List<Drink> drinks = new List<Drink>();
-        private static DrinkManager drinkManager = new DrinkManager(drinks);
-        private static DrinkRemover drinkRemover = new DrinkRemover(drinks);
-        private static DrinkSearchManager drinkSearchMamager = new DrinkSearchManager(drinks);
-        private static DrinkViewer drinkViewer = new DrinkViewer(drinks);
+        private static List<AlcoholicDrink> alcoholicDrinks = new List<AlcoholicDrink>(); 
+        private static DrinkManager drinkManager = new DrinkManager(drinks, alcoholicDrinks); 
+        private static DrinkRemover drinkRemover = new DrinkRemover(drinks, alcoholicDrinks); 
+        private static DrinkSearchManager drinkSearchManager = new DrinkSearchManager(drinks, alcoholicDrinks); 
+        private static DrinkViewer drinkViewer = new DrinkViewer(drinks, alcoholicDrinks);
+
 
         private static void Main(string[] args)
         {
@@ -43,29 +45,29 @@ namespace MixologyMatrix.App
                     continue;
                 }
                 Console.WriteLine();
-                switch (operation.KeyChar)
+                switch (chosenOption)
                 {
-                    case '1':
-                        drinkSearchMamager.SearchDrinks();
+                    case 1:
+                        drinkSearchManager.SearchDrinks();
                         break;
 
-                    case '2':
+                    case 2:
                         drinkManager.AddDrink();
                         break;
 
-                    case '3':
+                    case 3:
                         drinkManager.EditDrink();
                         break;
 
-                    case '4':
+                    case 4:
                         drinkRemover.DrinkRemoverMenu();
                         break;
 
-                    case '5':
+                    case 5:
                         drinkViewer.ListAllDrinks();
                         break;
 
-                    case '6':
+                    case 6:
                         Console.WriteLine("Exiting the program...");
                         Environment.Exit(0);
                         break;
@@ -76,7 +78,6 @@ namespace MixologyMatrix.App
                 }
             }
         }
-
         private static MenuActionService Initialize(MenuActionService menuActionService)
         {
             menuActionService.AddNewAction(1, "Search for a drink recipe", "Main");

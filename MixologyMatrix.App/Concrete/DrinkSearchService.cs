@@ -1,52 +1,66 @@
 ﻿using MixologyMatrix.App.Abstract;
-using MixologyMatrix.Domain.Enums;
 using MixologyMatrix.Domain.Entity;
+using MixologyMatrix.Domain.Enums;
+using System.Xml.Linq;
 
 namespace MixologyMatrix.App.Concrete
 {
     public class DrinkSearchService : IDrinkSearchService
     {
         private List<Drink> drinks;
-        private List<AlcoholicDrink> drinks_;
+        private List<AlcoholicDrink> alcoholicDrinks;
 
-        public DrinkSearchService(List<Drink> drinks)
+        public DrinkSearchService(List<Drink> drinks, List<AlcoholicDrink> alcoholicDrinks)
         {
             this.drinks = drinks;
+            this.alcoholicDrinks = alcoholicDrinks;
         }
 
         public List<Drink> SearchByDrinkName(string name)
         {
-            return drinks.Where(d => d.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            var results = drinks.Where(d => d.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            results.AddRange(alcoholicDrinks.Where(d => d.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList());
+            return results;
         }
 
         public List<Drink> SearchByDrinkType(DrinkType drinkType)
         {
-            return drinks.Where(d => d.Type == drinkType).ToList();
+            var results = drinks.Where(d => d.Type == drinkType).ToList();
+            results.AddRange(alcoholicDrinks.Where(d => d.Type == drinkType).ToList());
+            return results;
         }
 
-        public List<AlcoholicDrink> SaerchByAlcoholType(AlcoholType alcoholType)
+        public List<AlcoholicDrink> SearchByAlcoholType(AlcoholType alcoholType)
         {
-            return drinks.OfType<AlcoholicDrink>().Where(a => a.Alcohol == alcoholType).ToList();
+            return alcoholicDrinks.Where(a => a.Alcohol == alcoholType).ToList();
         }
 
-        public List<Drink> SaerchByDifficultyLevel(DifficultyLevel difficultyLevel)
+        public List<Drink> SearchByDifficultyLevel(DifficultyLevel difficultyLevel)
         {
-            return drinks.Where(d => d.DifficultyLevel == difficultyLevel).ToList();
+            var results = drinks.Where(d => d.DifficultyLevel == difficultyLevel).ToList();
+            results.AddRange(alcoholicDrinks.Where(d => d.DifficultyLevel == difficultyLevel).ToList());
+            return results;
         }
 
-        public List<Drink> SaerchByGlassType(GlassType glassType)
+        public List<Drink> SearchByGlassType(GlassType glassType)
         {
-            return drinks.Where(g => g.GlassType == glassType).ToList();
+            var results = drinks.Where(g => g.GlassType == glassType).ToList();
+            results.AddRange(alcoholicDrinks.Where(g => g.GlassType == glassType).ToList());
+            return results;
         }
 
-        public List<Drink> SaerchByFlavorProfile(FlavorProfile flavorProfile)
+        public List<Drink> SearchByFlavorProfile(FlavorProfile flavorProfile)
         {
-            return drinks.Where(f => f.FlavorProfile == flavorProfile).ToList();
+            var results = drinks.Where(f => f.FlavorProfile == flavorProfile).ToList();
+            results.AddRange(alcoholicDrinks.Where(f => f.FlavorProfile == flavorProfile).ToList());
+            return results;
         }
 
-        public List<Drink> SaerchByOccasionType(OccasionType occasionType)
+        public List<Drink> SearchByOccasionType(OccasionType occasionType)
         {
-            return drinks.Where(o => o.OccasionType == occasionType).ToList();
+            var results = drinks.Where(o => o.OccasionType == occasionType).ToList();
+            results.AddRange(alcoholicDrinks.Where(o => o.OccasionType == occasionType).ToList());
+            return results;
         }
     }
 }
