@@ -1,23 +1,31 @@
 ﻿using MixologyMatrix.Domain.Entity;
 
-namespace MixologyMatrix
+public class DrinkRemover
 {
-    public class DrinkRemover
+    private List<Drink> drinks;
+    private List<AlcoholicDrink> alcoholicDrinks;
+
+    public DrinkRemover(List<Drink> drinks, List<AlcoholicDrink> alcoholicDrinks)
     {
-        private List<Drink> drinks;
+        this.drinks = drinks;
+        this.alcoholicDrinks = alcoholicDrinks;
+    }
 
-        public DrinkRemover(List<Drink> drinks)
+    public bool RemoveDrinkByName(string name)
+    {
+        Drink drinkToRemove = drinks.FirstOrDefault(d => d.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        if (drinkToRemove != null)
         {
-            this.drinks = drinks;
+            drinks.Remove(drinkToRemove);
+            Console.WriteLine($"Drink '{name}' removed successfully!");
+            return true;
         }
-
-        public bool RemoveDrinkByName(string name)
+        else
         {
-            Drink drinkToRemove = drinks.FirstOrDefault(d => d.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-
-            if (drinkToRemove != null)
+            AlcoholicDrink alcoholicDrinkToRemove = alcoholicDrinks.FirstOrDefault(d => d.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (alcoholicDrinkToRemove != null)
             {
-                drinks.Remove(drinkToRemove);
+                alcoholicDrinks.Remove(alcoholicDrinkToRemove);
                 Console.WriteLine($"Drink '{name}' removed successfully!");
                 return true;
             }
@@ -27,66 +35,79 @@ namespace MixologyMatrix
                 return false;
             }
         }
+    }
 
-        public bool RemoveDrinkById(int id)
+    public bool RemoveDrinkById(int id)
+    {
+        Drink drinkToRemove = drinks.FirstOrDefault(d => d.Id == id);
+        if (drinkToRemove != null)
         {
-            Drink drinkToRemove = drinks.FirstOrDefault(d => d.Id == id);
-            if (drinkToRemove != null)
+            drinks.Remove(drinkToRemove);
+            Console.WriteLine($"Drink with ID '{id}' removed successfully!");
+            return true;
+        }
+        else
+        {
+            AlcoholicDrink alcoholicDrinkToRemove = alcoholicDrinks.FirstOrDefault(d => d.Id == id);
+            if (alcoholicDrinkToRemove != null)
             {
-                drinks.Remove(drinkToRemove);
+                alcoholicDrinks.Remove(alcoholicDrinkToRemove);
                 Console.WriteLine($"Drink with ID '{id}' removed successfully!");
                 return true;
             }
-            Console.WriteLine($"Drink with ID '{id}' not found!");
-            return false;
-        }
-
-        public void DrinkRemoverMenu()
-        {
-            while (true)
+            else
             {
-                Console.WriteLine("Choose an option to remove a drink:");
-                Console.WriteLine("1. Remove by ID");
-                Console.WriteLine("2. Remove by Name");
-                Console.WriteLine("Enter your choice:");
+                Console.WriteLine($"Drink with ID '{id}' not found!");
+                return false;
+            }
+        }
+    }
 
-                var choice = Console.ReadKey();
-                Console.WriteLine();
+    public void DrinkRemoverMenu()
+    {
+        while (true)
+        {
+            Console.WriteLine("Choose an option to remove a drink:");
+            Console.WriteLine("1. Remove by ID");
+            Console.WriteLine("2. Remove by Name");
+            Console.WriteLine("Enter your choice:");
 
-                switch (choice.KeyChar)
-                {
-                    case '1':
-                        Console.WriteLine("Enter the ID of the drink to remove:");
-                        var drinkIdInput = Console.ReadLine();
-                        if (int.TryParse(drinkIdInput, out int drinkId))
-                        {
-                            RemoveDrinkById(drinkId);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid ID. Please enter a valid number.");
-                        }
-                        break;
+            var choice = Console.ReadKey();
+            Console.WriteLine();
 
-                    case '2':
-                        Console.WriteLine("Enter the name of the drink to remove:");
-                        var drinkName = Console.ReadLine();
-                        RemoveDrinkByName(drinkName);
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid choice. Please enter 1 or 2.");
-                        break;
-                }
-
-                Console.WriteLine("Do you want to perform another remove operation? (y/n)");
-                var continueChoice = Console.ReadKey();
-                Console.WriteLine();
-
-                if (continueChoice.KeyChar != 'y' && continueChoice.KeyChar != 'Y')
-                {
+            switch (choice.KeyChar)
+            {
+                case '1':
+                    Console.WriteLine("Enter the ID of the drink to remove:");
+                    var drinkIdInput = Console.ReadLine();
+                    if (int.TryParse(drinkIdInput, out int drinkId))
+                    {
+                        RemoveDrinkById(drinkId);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid ID. Please enter a valid number.");
+                    }
                     break;
-                }
+
+                case '2':
+                    Console.WriteLine("Enter the name of the drink to remove:");
+                    var drinkName = Console.ReadLine();
+                    RemoveDrinkByName(drinkName);
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid choice. Please enter 1 or 2.");
+                    break;
+            }
+
+            Console.WriteLine("Do you want to perform another remove operation? (y/n)");
+            var continueChoice = Console.ReadKey();
+            Console.WriteLine();
+
+            if (continueChoice.KeyChar != 'y' && continueChoice.KeyChar != 'Y')
+            {
+                break;
             }
         }
     }

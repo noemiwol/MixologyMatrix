@@ -8,13 +8,14 @@ namespace MixologyMatrix
     {
         private DrinkViewer viewer;
         private List<Drink> drinks;
+        private List<AlcoholicDrink> alcoholicDrinks;
         private DrinkSearchService searchService;
-
-        public DrinkSearchManager(List<Drink> drinks)
+        public DrinkSearchManager(List<Drink> drinks, List<AlcoholicDrink> alcoholicDrinks)
         {
             this.drinks = drinks;
-            this.searchService = new DrinkSearchService(drinks);
-            this.viewer = new DrinkViewer(drinks);
+            this.searchService = new DrinkSearchService(drinks, alcoholicDrinks);
+            this.viewer = new DrinkViewer(drinks, alcoholicDrinks);
+            this.alcoholicDrinks = alcoholicDrinks;
         }
 
         public void SearchDrinks()
@@ -174,7 +175,7 @@ namespace MixologyMatrix
                 return new List<Drink>();
             }
 
-            List<AlcoholicDrink> matchingDrinks = searchService.SaerchByAlcoholType(alcoholType);
+            List<AlcoholicDrink> matchingDrinks = searchService.SearchByAlcoholType(alcoholType);
 
             if (matchingDrinks.Count > 0)
             {
@@ -190,7 +191,6 @@ namespace MixologyMatrix
                 Console.WriteLine($"No drinks found with the alcohol type '{alcoholType}'.");
             }
 
-            // Cast the list of AlcoholicDrink to a list of Drink
             return matchingDrinks.Cast<Drink>().ToList();
         }
 
@@ -218,7 +218,7 @@ namespace MixologyMatrix
                 return new List<Drink>();
             }
 
-            List<Drink> foundDrinks = searchService.SaerchByDifficultyLevel(difficultyLevel);
+            List<Drink> foundDrinks = searchService.SearchByDifficultyLevel(difficultyLevel);
 
             if (foundDrinks.Count > 0)
             {
@@ -244,7 +244,7 @@ namespace MixologyMatrix
             GlassType glassType;
             if (Enum.TryParse(input, out glassType))
             {
-                List<Drink> foundDrinks = searchService.SaerchByGlassType(glassType);
+                List<Drink> foundDrinks = searchService.SearchByGlassType(glassType);
 
                 if (foundDrinks.Count > 0)
                 {
@@ -266,14 +266,15 @@ namespace MixologyMatrix
             return new List<Drink>();
         }
 
+
         private List<Drink> SearchByFlavorProfile()
         {
             Console.WriteLine("Enter flavor profile (e.g., Sweet, Sour):");
             var input = Console.ReadLine();
             FlavorProfile profile;
-            if (Enum.TryParse(input, out profile))
+            if (Enum.TryParse(input, true, out profile))
             {
-                List<Drink> foundDrinks = searchService.SaerchByFlavorProfile(profile);
+                List<Drink> foundDrinks = searchService.SearchByFlavorProfile(profile);
 
                 if (foundDrinks.Count > 0)
                 {
@@ -295,14 +296,15 @@ namespace MixologyMatrix
             return new List<Drink>();
         }
 
+
         private List<Drink> SearchByOccasionType()
         {
             Console.WriteLine("Enter occasion type (e.g., Party, Dinner):");
             string input = Console.ReadLine();
             OccasionType occasionType;
-            if (Enum.TryParse(input, out occasionType))
+            if (Enum.TryParse(input, true, out occasionType))
             {
-                List<Drink> foundDrinks = searchService.SaerchByOccasionType(occasionType);
+                List<Drink> foundDrinks = searchService.SearchByOccasionType(occasionType);
 
                 if (foundDrinks.Count > 0)
                 {
@@ -323,5 +325,6 @@ namespace MixologyMatrix
             Console.WriteLine("Invalid type");
             return new List<Drink>();
         }
+
     }
 }
