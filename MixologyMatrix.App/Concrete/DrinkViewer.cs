@@ -12,6 +12,7 @@ namespace MixologyMatrix
             this.drinks = drinks;
             this.alcoholicDrink = alcoholicDrink;
         }
+
         public void DisplayDrinkDetails(Drink drink)
         {
             Console.WriteLine($"ID: {drink.Id}");
@@ -32,8 +33,8 @@ namespace MixologyMatrix
 
         public void ListAllDrinks()
         {
-            if((drinks == null || drinks.Count == 0) && (alcoholicDrink == null || alcoholicDrink.Count == 0))
-    {
+            if ((drinks == null || drinks.Count == 0) && (alcoholicDrink == null || alcoholicDrink.Count == 0))
+            {
                 Console.WriteLine("No drinks available");
                 return;
             }

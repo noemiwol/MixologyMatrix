@@ -18,5 +18,5 @@ namespace MixologyMatrix.App.Abstract
         List<Drink> SearchByDrinkName(string name);
 
         List<Drink> SearchByDrinkType(DrinkType drinkType);
-    }   
+    }
 }
