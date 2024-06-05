@@ -10,6 +10,7 @@ namespace MixologyMatrix
         private List<Drink> drinks;
         private List<AlcoholicDrink> alcoholicDrinks;
         private DrinkSearchService searchService;
+
         public DrinkSearchManager(List<Drink> drinks, List<AlcoholicDrink> alcoholicDrinks)
         {
             this.drinks = drinks;
@@ -266,7 +267,6 @@ namespace MixologyMatrix
             return new List<Drink>();
         }
 
-
         private List<Drink> SearchByFlavorProfile()
         {
             Console.WriteLine("Enter flavor profile (e.g., Sweet, Sour):");
@@ -296,7 +296,6 @@ namespace MixologyMatrix
             return new List<Drink>();
         }
 
-
         private List<Drink> SearchByOccasionType()
         {
             Console.WriteLine("Enter occasion type (e.g., Party, Dinner):");
@@ -325,6 +324,5 @@ namespace MixologyMatrix
             Console.WriteLine("Invalid type");
             return new List<Drink>();
         }
-
     }
 }

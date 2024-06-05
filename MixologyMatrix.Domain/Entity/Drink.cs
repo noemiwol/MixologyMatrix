@@ -1,5 +1,6 @@
 ﻿using MixologyMatrix.Domain.Common;
 using MixologyMatrix.Domain.Enums;
+using System.Text;
 
 namespace MixologyMatrix.Domain.Entity
 {
@@ -29,7 +30,17 @@ namespace MixologyMatrix.Domain.Entity
 
         public override string ToString()
         {
-            return $"{Name} ({Type}): {Ingredients}";
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine($"Name: {Name}");
+            stringBuilder.AppendLine($"Type: {Type}");
+            stringBuilder.AppendLine($"Ingredients: {Ingredients}");
+            stringBuilder.AppendLine($"Steps: {Steps}");
+            stringBuilder.AppendLine($"Difficulty Level: {DifficultyLevel}");
+            stringBuilder.AppendLine($"Glass Type: {GlassType}");
+            stringBuilder.AppendLine($"Flavor Profile: {FlavorProfile}");
+            stringBuilder.AppendLine($"Occasion Type: {OccasionType}");
+
+            return stringBuilder.ToString();
         }
     }
 }

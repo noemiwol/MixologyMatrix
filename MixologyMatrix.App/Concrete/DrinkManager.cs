@@ -11,31 +11,14 @@ namespace MixologyMatrix
         private int nextId = 1;
         private DrinkSearchService searchService;
         private DrinkViewer viewer;
+
         public DrinkManager(List<Drink> drinks, List<AlcoholicDrink> alcoholicDrinks)
         {
             this.drinks = drinks;
             this.alcoholicDrinks = alcoholicDrinks;
-            this.viewer = new DrinkViewer(drinks, alcoholicDrinks); 
-            this.searchService = new DrinkSearchService(drinks, alcoholicDrinks); 
+            this.viewer = new DrinkViewer(drinks, alcoholicDrinks);
+            this.searchService = new DrinkSearchService(drinks, alcoholicDrinks);
         }
-
-        /*public DrinkManager(List<AlcoholicDrink> alcoholicDrink)
-        {
-            this.alcoholicDrinks = alcoholicDrink;
-        }
-
-        public DrinkManager(List<Drink> drinks, DrinkViewer viewer)
-        {
-            this.drinks = drinks;
-            this.viewer = viewer;
-            this.searchService = new DrinkSearchService(drinks);
-        }
-
-        public DrinkManager(List<AlcoholicDrink> alcoholicDrink, DrinkViewer viewer)
-        {
-            this.alcoholicDrink = alcoholicDrink;
-            this.viewer = viewer;
-        }*/
 
         public void AddDrink()
         {
@@ -43,7 +26,6 @@ namespace MixologyMatrix
 
             Console.Write("Enter the name of the drink: ");
             var name = Console.ReadLine();
-
 
             Console.WriteLine("Is the drink alcoholic or non-alcoholic? (A/N)");
             var typeInput = Console.ReadLine().ToUpper();
@@ -168,7 +150,7 @@ namespace MixologyMatrix
             if (type == DrinkType.Alcoholic)
             {
                 var newAlcoholicDrink = new AlcoholicDrink(newDrinkId, name, type, ingredients, steps, difficultyLevel, glassType, flavorProfile, occasionType, alcohol);
-                alcoholicDrinks.Add(newAlcoholicDrink); 
+                alcoholicDrinks.Add(newAlcoholicDrink);
             }
             else
             {
@@ -214,38 +196,106 @@ namespace MixologyMatrix
             }
 
             Console.WriteLine("Is the drink alcoholic or non-alcoholic? (A/N or press Enter to keep current)");
-            var typeInput = Console.ReadLine().ToUpper();
+            var typeInput = Console.ReadLine()?.ToUpper();
+
             if (!string.IsNullOrEmpty(typeInput))
             {
-                DrinkType type = (typeInput == "A") ? DrinkType.Alcoholic : DrinkType.NonAlcoholic;
-                drinkToEdit.Type = type;
-            }
+                DrinkType newType = (typeInput == "A") ? DrinkType.Alcoholic : DrinkType.NonAlcoholic;
 
-            if (drinkToEdit.Type == DrinkType.Alcoholic && drinkToEdit is AlcoholicDrink alcoholicDrink)
-            {
-                AlcoholType alcohol;
-                while (true)
+                if (newType != drinkToEdit.Type)
                 {
-                    Console.WriteLine("Select the alcohol type (or press Enter to keep current):");
+                    if (newType == DrinkType.Alcoholic)
+                    {
+                        drinks.Remove(drinkToEdit);
+
+                        var newAlcoholicDrink = new AlcoholicDrink(
+                            drinkToEdit.Id,
+                            drinkToEdit.Name,
+                            DrinkType.Alcoholic,
+                            drinkToEdit.Ingredients,
+                            drinkToEdit.Steps,
+                            drinkToEdit.DifficultyLevel,
+                            drinkToEdit.GlassType,
+                            drinkToEdit.FlavorProfile,
+                            drinkToEdit.OccasionType,
+                            AlcoholType.None
+                        );
+
+                        if (drinkToEdit.Type == DrinkType.NonAlcoholic)
+                        {
+                            AlcoholType alcohol;
+                            while (true)
+                            {
+                                Console.WriteLine("Select the alcohol type:");
+                                foreach (AlcoholType alcoholType in Enum.GetValues(typeof(AlcoholType)))
+                                {
+                                    Console.WriteLine($"{(int)alcoholType}. {alcoholType}");
+                                }
+
+                                Console.Write("Enter the number corresponding to the alcohol type: ");
+                                var alcoholInput = Console.ReadLine();
+
+                                if (!int.TryParse(alcoholInput, out int alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
+                                {
+                                    Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the alcohol type.");
+                                    continue;
+                                }
+
+                                alcohol = (AlcoholType)alcoholIndex;
+                                newAlcoholicDrink.Alcohol = alcohol;
+                                break;
+                            }
+                        }
+
+                        alcoholicDrinks.Add(newAlcoholicDrink);
+                        drinkToEdit = newAlcoholicDrink;
+                    }
+                    else
+                    {
+                        alcoholicDrinks.Remove((AlcoholicDrink)drinkToEdit);
+
+                        var newNonAlcoholicDrink = new Drink(
+                            drinkToEdit.Id,
+                            drinkToEdit.Name,
+                            DrinkType.NonAlcoholic,
+                            drinkToEdit.Ingredients,
+                            drinkToEdit.Steps,
+                            drinkToEdit.DifficultyLevel,
+                            drinkToEdit.GlassType,
+                            drinkToEdit.FlavorProfile,
+                            drinkToEdit.OccasionType
+                        );
+
+                        drinks.Add(newNonAlcoholicDrink);
+                        drinkToEdit = newNonAlcoholicDrink;
+                    }
+                }
+                else if (newType == DrinkType.Alcoholic && drinkToEdit is AlcoholicDrink alcoholicDrink)
+                {
+                    Console.WriteLine("Select the new alcohol type:");
                     foreach (AlcoholType alcoholType in Enum.GetValues(typeof(AlcoholType)))
                     {
                         Console.WriteLine($"{(int)alcoholType}. {alcoholType}");
                     }
 
-                    Console.Write("Enter the number corresponding to the alcohol type: ");
+                    Console.Write("Enter the number corresponding to the new alcohol type: ");
                     var alcoholInput = Console.ReadLine();
-                    if (string.IsNullOrEmpty(alcoholInput)) break;
 
-                    int alcoholIndex;
-                    if (!int.TryParse(alcoholInput, out alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
+                    if (!int.TryParse(alcoholInput, out int alcoholIndex) || !Enum.IsDefined(typeof(AlcoholType), alcoholIndex))
                     {
                         Console.WriteLine("Invalid choice. Please enter a valid number corresponding to the alcohol type.");
-                        continue;
                     }
+                    else
+                    {
+                        AlcoholType newAlcoholType = (AlcoholType)alcoholIndex;
 
-                    alcohol = (AlcoholType)alcoholIndex;
-                    alcoholicDrink.Alcohol = alcohol;
-                    break;
+                        if (newAlcoholType != alcoholicDrink.Alcohol)
+                        {
+                            Console.WriteLine($"Changing alcohol type to {newAlcoholType}...");
+
+                            alcoholicDrink.Alcohol = newAlcoholType;
+                        }
+                    }
                 }
             }
 
@@ -349,20 +399,26 @@ namespace MixologyMatrix
             }
 
             Console.Write("Enter the new ingredients of the drink (or press Enter to keep current): ");
-            var ingredients = Console.ReadLine();
-            if (!string.IsNullOrEmpty(ingredients))
+            var newIngredients = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newIngredients))
             {
-                drinkToEdit.Ingredients = ingredients;
+                drinkToEdit.Ingredients = newIngredients;
+            }
+            else
+            {
+                newIngredients = drinkToEdit.Ingredients;
             }
 
             Console.Write("Enter the new steps of the drink (or press Enter to keep current): ");
-            var steps = Console.ReadLine();
-            if (!string.IsNullOrEmpty(steps))
+            var newSteps = Console.ReadLine();
+            if (!string.IsNullOrEmpty(newSteps))
             {
-                drinkToEdit.Steps = steps;
+                drinkToEdit.Steps = newSteps;
             }
-
-            Console.WriteLine($"Drink ID {drinkId} updated successfully!");
+            else
+            {
+                newSteps = drinkToEdit.Steps;
+            }
         }
     }
 }

@@ -6,12 +6,11 @@ namespace MixologyMatrix.App
     public class Program
     {
         private static List<Drink> drinks = new List<Drink>();
-        private static List<AlcoholicDrink> alcoholicDrinks = new List<AlcoholicDrink>(); 
-        private static DrinkManager drinkManager = new DrinkManager(drinks, alcoholicDrinks); 
-        private static DrinkRemover drinkRemover = new DrinkRemover(drinks, alcoholicDrinks); 
-        private static DrinkSearchManager drinkSearchManager = new DrinkSearchManager(drinks, alcoholicDrinks); 
+        private static List<AlcoholicDrink> alcoholicDrinks = new List<AlcoholicDrink>();
+        private static DrinkManager drinkManager = new DrinkManager(drinks, alcoholicDrinks);
+        private static DrinkRemover drinkRemover = new DrinkRemover(drinks, alcoholicDrinks);
+        private static DrinkSearchManager drinkSearchManager = new DrinkSearchManager(drinks, alcoholicDrinks);
         private static DrinkViewer drinkViewer = new DrinkViewer(drinks, alcoholicDrinks);
-
 
         private static void Main(string[] args)
         {
@@ -78,6 +77,7 @@ namespace MixologyMatrix.App
                 }
             }
         }
+
         private static MenuActionService Initialize(MenuActionService menuActionService)
         {
             menuActionService.AddNewAction(1, "Search for a drink recipe", "Main");
