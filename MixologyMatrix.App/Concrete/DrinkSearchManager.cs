@@ -37,9 +37,9 @@ namespace MixologyMatrix
 
             List<Drink> results = new List<Drink>();
 
-            if (!char.IsDigit(choice.KeyChar) || choice.KeyChar < '1' || choice.KeyChar > '7')
+            if (!char.IsDigit(choice.KeyChar) || choice.KeyChar < '1' || choice.KeyChar > '8')
             {
-                Console.WriteLine("Invalid choice. Please enter a number between 1 and 7.");
+                Console.WriteLine("Invalid choice. Please enter a number between 1 and 8.");
                 return;
             }
 
@@ -83,7 +83,7 @@ namespace MixologyMatrix
             }
         }
 
-        private List<Drink> SearchByDrinkName()
+        public List<Drink> SearchByDrinkName()
         {
             Console.WriteLine("Enter the name of the drink:");
             var name = Console.ReadLine();
@@ -107,7 +107,7 @@ namespace MixologyMatrix
             return foundDrinks;
         }
 
-        private List<Drink> SearchByDrinkType()
+        public List<Drink> SearchByDrinkType()
         {
             Console.WriteLine("Enter drink type: alcoholic or non-alcoholic? (A/N)");
             string typeInput = Console.ReadLine().ToUpper();
@@ -166,7 +166,7 @@ namespace MixologyMatrix
             return nonAlcoholicDrinks;
         }
 
-        private List<Drink> SearchByAlcoholType()
+        public List<Drink> SearchByAlcoholType()
         {
             Console.WriteLine("Enter alcohol type (e.g., Vodka, Rum, Whiskey):");
             string input = Console.ReadLine();
@@ -195,7 +195,7 @@ namespace MixologyMatrix
             return matchingDrinks.Cast<Drink>().ToList();
         }
 
-        private List<Drink> SearchByDifficultyLevel()
+        public List<Drink> SearchByDifficultyLevel()
         {
             Console.WriteLine("Enter difficulty level (Easy, Medium, Hard): (E/M/H)");
             var typeInput = Console.ReadLine().ToUpper();
@@ -238,7 +238,7 @@ namespace MixologyMatrix
             return foundDrinks;
         }
 
-        private List<Drink> SearchByGlassType()
+        public List<Drink> SearchByGlassType()
         {
             Console.WriteLine("Enter glass type (e.g., Highball, Martini):");
             string input = Console.ReadLine();
@@ -267,7 +267,7 @@ namespace MixologyMatrix
             return new List<Drink>();
         }
 
-        private List<Drink> SearchByFlavorProfile()
+        public List<Drink> SearchByFlavorProfile()
         {
             Console.WriteLine("Enter flavor profile (e.g., Sweet, Sour):");
             var input = Console.ReadLine();
@@ -296,7 +296,7 @@ namespace MixologyMatrix
             return new List<Drink>();
         }
 
-        private List<Drink> SearchByOccasionType()
+        public List<Drink> SearchByOccasionType()
         {
             Console.WriteLine("Enter occasion type (e.g., Party, Dinner):");
             string input = Console.ReadLine();
