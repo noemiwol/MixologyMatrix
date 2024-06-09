@@ -1,6 +1,5 @@
 using MixologyMatrix.Domain.Entity;
 using MixologyMatrix.Domain.Enums;
-using System.IO;
 
 namespace MixologyMatrix.Tests
 {
@@ -14,7 +13,7 @@ namespace MixologyMatrix.Tests
             var alcoholicDrinks = new List<AlcoholicDrink>();
             var drinkManager = new DrinkManager(drinks, alcoholicDrinks);
 
-            var consoleInput = new StringReader("Cola\nN\n1\n1\n1\n1\n1\nSugar\nMix\n");
+            var consoleInput = new StringReader("Cola\nN\n1\n1\n1\n1\nSugar\nMix\n");
             Console.SetIn(consoleInput);
 
             // Act
@@ -39,13 +38,14 @@ namespace MixologyMatrix.Tests
             var alcoholicDrinks = new List<AlcoholicDrink>();
             var drinkManager = new DrinkManager(drinks, alcoholicDrinks);
 
-            var consoleInput = new StringReader("Cola\nA\n1\n1\n1\n1\n1\n1\nSugar\nMix\n");
+            var consoleInput = new StringReader("Cola\nA\n1\n1\n1\n1\n1\nSugar\nMix\n");
             Console.SetIn(consoleInput);
 
             // Act
             drinkManager.AddDrink();
 
             // Assert
+
             Assert.Single(alcoholicDrinks);
             var addedDrink = alcoholicDrinks[0];
             Assert.Equal("Cola", addedDrink.Name);
@@ -187,12 +187,12 @@ namespace MixologyMatrix.Tests
             var alcoholicDrinks = new List<AlcoholicDrink>();
             var drinkManager = new DrinkManager(drinks, alcoholicDrinks);
 
-            var consoleInput = new StringReader("Cola\nA\n1\n1\n1\n1\n1\n1\nSugar\nMix\n");
+            var consoleInput = new StringReader("Cola\nA\n1\n1\n1\n1\n1\n1\n1\nSugar\nMix\n");
             Console.SetIn(consoleInput);
 
             drinkManager.AddDrink();
 
-            var editConsoleInput = new StringReader("1\n\nA\n\n\n\n\n\n\n\n\n");
+            var editConsoleInput = new StringReader("1\n\n\n\n\n\n\n\n\n\n\n\n");
             Console.SetIn(editConsoleInput);
 
             // Act
@@ -211,12 +211,36 @@ namespace MixologyMatrix.Tests
             var alcoholicDrinks = new List<AlcoholicDrink>();
             var drinkManager = new DrinkManager(drinks, alcoholicDrinks);
 
-            var consoleInput = new StringReader("Cola\nA\n1\n1\n1\n1\n1\n1\nSugar\nMix\n");
+            var consoleInput = new StringReader("Cola\nN\n1\n1\n1\n1\nSugar\nMix\n");
             Console.SetIn(consoleInput);
 
             drinkManager.AddDrink();
 
-            var editConsoleInput = new StringReader("1\n\nA\n\n2\n\n\n\n\n\n\n");
+            var editConsoleInput = new StringReader("1\n\n\n2\n\n\n\n\n\n");
+            Console.SetIn(editConsoleInput);
+
+            // Act
+            drinkManager.EditDrink();
+
+            // Assert
+            var editedDrink = drinks[0];
+            Assert.Equal(DifficultyLevel.Hard, editedDrink.DifficultyLevel);
+        }
+
+        [Fact]
+        public void EditDrink_Should_UpdateDifficultyLevelToHard_WhenNewDifficultyLevelIsProvidedToMediumALKO()
+        {
+            //Arrange
+            var drinks = new List<Drink>();
+            var alcoholicDrinks = new List<AlcoholicDrink>();
+            var drinkManager = new DrinkManager(drinks, alcoholicDrinks);
+
+            var consoleInput = new StringReader("Cola\nA\n1\n1\n1\n1\n1\nSugar\nMix\n");
+            Console.SetIn(consoleInput);
+
+            drinkManager.AddDrink();
+
+            var editConsoleInput = new StringReader("1\n\n\n2\n\n\n\n\n\n\n");
             Console.SetIn(editConsoleInput);
 
             // Act
@@ -493,7 +517,6 @@ namespace MixologyMatrix.Tests
 
             drinkManager.AddDrink();
 
-            // Wprowadzenie niepoprawnego identyfikatora napoju do edycji
             var editConsoleInput = new StringReader("2");
             Console.SetIn(editConsoleInput);
 
