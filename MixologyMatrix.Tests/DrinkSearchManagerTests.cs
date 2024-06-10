@@ -142,7 +142,7 @@ namespace MixologyMatrix.Tests
             string output = stringWriter.ToString().Trim();
 
             // Assert
-            Assert.Contains("Invalid type", output);
+            Assert.Contains("Invalid alcohol type", output);
         }
 
         [Fact]
