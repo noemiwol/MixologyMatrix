@@ -60,6 +60,7 @@ namespace MixologyMatrix.Tests
             Assert.False(result);
             Assert.Contains("Drink 'NonExistentDrink' not found!", output);
         }
+
         [Fact]
         public void RemoveDrinkByName_ShouldIgnoreCase_WhenSearchingForDrink()
         {
@@ -75,6 +76,7 @@ namespace MixologyMatrix.Tests
             Assert.True(result);
             Assert.Empty(drinks);
         }
+
         [Fact]
         public void RemoveDrinkByName_ShouldPrintSuccessMessage_WhenDrinkIsRemovedFromNonAlcoholicList()
         {
@@ -99,6 +101,7 @@ namespace MixologyMatrix.Tests
             Assert.Empty(drinks);
             Assert.Contains("Drink 'Virgin Martini' removed successfully!", output);
         }
+
         [Fact]
         public void RemoveDrinkByName_ShouldPrintSuccessMessage_WhenDrinkIsRemovedFromAlcoholicList()
         {
@@ -123,6 +126,7 @@ namespace MixologyMatrix.Tests
             Assert.Empty(alcoholicDrinks);
             Assert.Contains("Drink 'Martini' removed successfully!", output);
         }
+
         [Fact]
         public void RemoveDrinkByName_ShouldPrintNotFoundMessage_WhenDrinkIsNotFoundInEitherList()
         {
@@ -145,6 +149,7 @@ namespace MixologyMatrix.Tests
             // Assert
             Assert.Contains("Drink 'NonExistentDrink' not found!", output);
         }
+
         [Fact]
         public void RemoveDrinkById_ShouldReturnTrueAndRemoveNonAlcoholicDrink_WhenDrinkExistsInNonAlcoholicList()
         {
@@ -160,6 +165,7 @@ namespace MixologyMatrix.Tests
             Assert.True(result);
             Assert.Empty(drinks);
         }
+
         [Fact]
         public void RemoveDrinkById_ShouldReturnTrueAndRemoveAlcoholicDrink_WhenDrinkExistsInAlcoholicList()
         {
@@ -175,6 +181,7 @@ namespace MixologyMatrix.Tests
             Assert.True(result);
             Assert.Empty(alcoholicDrinks);
         }
+
         [Fact]
         public void RemoveDrinkById_ShouldReturnFalse_WhenDrinkDoesNotExist()
         {
@@ -198,6 +205,7 @@ namespace MixologyMatrix.Tests
             Assert.False(result);
             Assert.Contains("Drink with ID '1' not found!", output);
         }
+
         [Fact]
         public void RemoveDrinkById_ShouldReturnFalse_WhenIdIsNegative()
         {
@@ -221,6 +229,7 @@ namespace MixologyMatrix.Tests
             Assert.False(result);
             Assert.Contains("Drink with ID '-1' not found!", output);
         }
+
         [Fact]
         public void RemoveDrinkById_ShouldReturnFalse_WhenIdIsZero()
         {
@@ -244,6 +253,7 @@ namespace MixologyMatrix.Tests
             Assert.False(result);
             Assert.Contains("Drink with ID '0' not found!", output);
         }
+
         [Fact]
         public void RemoveDrinkById_ShouldPrintNotFoundMessage_WhenDrinkDoesNotExist()
         {
