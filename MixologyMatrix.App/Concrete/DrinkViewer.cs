@@ -20,14 +20,14 @@ namespace MixologyMatrix
             Console.WriteLine($"Type: {drink.Type}");
             Console.WriteLine($"Ingredients: {drink.Ingredients}");
             Console.WriteLine($"Steps: {drink.Steps}");
-            if (drink is AlcoholicDrink alcoholicDrink)
-            {
-                Console.WriteLine($"Alcohol: {alcoholicDrink.Alcohol}");
-            }
             Console.WriteLine($"Difficulty Level: {drink.DifficultyLevel}");
             Console.WriteLine($"Glass Type: {drink.GlassType}");
             Console.WriteLine($"Flavor Profile: {drink.FlavorProfile}");
             Console.WriteLine($"Occasion Type: {drink.OccasionType}");
+            if (drink is AlcoholicDrink alcoholicDrink)
+            {
+                Console.WriteLine($"Alcohol: {alcoholicDrink.Alcohol}");
+            }
             Console.WriteLine(new string('-', 20));
         }
 
