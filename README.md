@@ -42,6 +42,9 @@ MixologyMatrix to prosta aplikacja konsolowa służąca do zarządzania przepisa
 
 ## Licencja
 
+Ten projekt jest licencjonowany na podstawie licencji MIT - zobacz plik [LICENSE](LICENSE) po więcej szczegółów.
+
+
 
 
 ---
