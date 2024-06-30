@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixologyMatrix.App", "Mixol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixologyMatrix.Domain", "MixologyMatrix.Domain\MixologyMatrix.Domain.csproj", "{A170CE05-34A0-4275-9EF4-8A7156863AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrix.Tests", "MixologyMatrix.Tests\MixologyMatrix.Tests.csproj", "{740EBA78-6C46-40F4-8897-8424096F3B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixologyMatrix.Tests", "MixologyMatrix.Tests\MixologyMatrix.Tests.csproj", "{740EBA78-6C46-40F4-8897-8424096F3B7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
