@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using MixologyMatrix.MVC.Models;
+using MixologyMatrixMVC.Web.Models;
 using System.Diagnostics;
 
-namespace MixologyMatrix.MVC.Controllers
+namespace MixologyMatrixMVC.Web.Controllers
 {
     public class HomeController : Controller
     {

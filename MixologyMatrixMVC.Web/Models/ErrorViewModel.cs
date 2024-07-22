@@ -1,4 +1,4 @@
-namespace MixologyMatrix.MVC.Models
+namespace MixologyMatrixMVC.Web.Models
 {
     public class ErrorViewModel
     {

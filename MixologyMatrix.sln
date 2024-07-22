@@ -11,6 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixologyMatrix.Domain", "Mi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixologyMatrix.Tests", "MixologyMatrix.Tests\MixologyMatrix.Tests.csproj", "{740EBA78-6C46-40F4-8897-8424096F3B7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrixMVC.Web", "MixologyMatrixMVC.Web\MixologyMatrixMVC.Web.csproj", "{41FE08F0-CD62-4A25-99C3-827924A0D5C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrixMVC.Core", "MixologyMatrixMVC.Core\MixologyMatrixMVC.Core.csproj", "{4EBDFD09-89D2-4DFF-9E1F-3F55BDADCEAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrixMVC.Infrastructure", "MixologyMatrixMVC.Infrastructure\MixologyMatrixMVC.Infrastructure.csproj", "{53A95880-A71C-4A5C-A2ED-50999B04D031}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixologyMatrixMVC.Application", "MixologyMatrixMVC.Application\MixologyMatrixMVC.Application.csproj", "{9A04355F-085F-45EA-B398-956356291612}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,22 @@ Global
 		{740EBA78-6C46-40F4-8897-8424096F3B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{740EBA78-6C46-40F4-8897-8424096F3B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{740EBA78-6C46-40F4-8897-8424096F3B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41FE08F0-CD62-4A25-99C3-827924A0D5C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41FE08F0-CD62-4A25-99C3-827924A0D5C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41FE08F0-CD62-4A25-99C3-827924A0D5C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41FE08F0-CD62-4A25-99C3-827924A0D5C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EBDFD09-89D2-4DFF-9E1F-3F55BDADCEAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EBDFD09-89D2-4DFF-9E1F-3F55BDADCEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EBDFD09-89D2-4DFF-9E1F-3F55BDADCEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EBDFD09-89D2-4DFF-9E1F-3F55BDADCEAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53A95880-A71C-4A5C-A2ED-50999B04D031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A95880-A71C-4A5C-A2ED-50999B04D031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A95880-A71C-4A5C-A2ED-50999B04D031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A95880-A71C-4A5C-A2ED-50999B04D031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A04355F-085F-45EA-B398-956356291612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A04355F-085F-45EA-B398-956356291612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A04355F-085F-45EA-B398-956356291612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A04355F-085F-45EA-B398-956356291612}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
